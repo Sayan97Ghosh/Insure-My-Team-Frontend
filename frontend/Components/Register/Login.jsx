@@ -41,11 +41,26 @@ import {
     const toast = useToast();
   
     const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.type]: e.target.value });
+
+        setFormData({ ...formData, [e.target.type]: e.target.value });
+      
     };
   
     const register = () => {
       setLoading(true);
+      if(formData.email === "" && formData.password === "" ){
+        toast({
+          title: "please fill email or password",
+          description: "Please check your Email and Password.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        setLoading(false);
+      }
+      else{
+
+      
       axios
         .post("http://localhost:1234/login", formData)
         .then(({ data }) => {
@@ -59,7 +74,10 @@ import {
             isClosable: true,
           });
           setLoading(false);
-          window.reload();
+          setTimeout(()=>{
+
+            window.location.reload();
+          },400)
         })
         .catch((err) => {
           toast({
@@ -73,10 +91,11 @@ import {
           window.location.reload();
         });
       setFormData({ email: "", password: "" });
+      }
       
     };
 
-    console.log(formData);
+
   
     return (
       <Box w="35x">
@@ -106,6 +125,7 @@ import {
                       mt="5px"
                       value={formData.email}
                       onChange={handleChange}
+                      isRequired
                     />
                     <label>Password</label>
                     <InputGroup mt="5px" size="md">
@@ -117,6 +137,7 @@ import {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
+                        isRequired
                       />
                       <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>

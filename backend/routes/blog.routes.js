@@ -52,14 +52,25 @@ blogRouter.get("/:_id",async(req,res)=>{
         res.status(404).send({msg:err.message})
     }
 })
+blogRouter.get("/data/:id",Authentication,async(req,res)=>{
+
+    const blog=req.params
+    try{
+        const blogData=await Blogmodel.find({author:blog.id})
+        res.status(200).send(blogData)      //sending blogs data
+
+    }catch(err){
+        res.status(404).send({msg:err.message})
+    }
+})
 
 // update a specific blog
 
-blogRouter.patch("/:blogid",async(req,res)=>{
+blogRouter.patch("/update/:blogid",Authentication,async(req,res)=>{
     const blog=req.params.blogid;
     const userid=req.body.userid
         try{
-            const blogData=await Blogmodel.findOne({_id:blog,author:userid});       //Finding blog that has to be updated
+            const blogData=await Blogmodel.findOne({_id:blog});       //Finding blog that has to be updated
             if(blogData&& Object.keys(blogData).length>0){
                 await Blogmodel.findOneAndUpdate({_id:blog},{...req.body});
                 res.status(200).send({msg:"Updated Successfully"})
@@ -73,11 +84,11 @@ blogRouter.patch("/:blogid",async(req,res)=>{
 })
 // delte a specific blog with user id
 
-blogRouter.delete("/:blogid",Authentication,async(req,res)=>{
+blogRouter.delete("/delete/:blogid",Authentication,async(req,res)=>{
     const blog=req.params.blogid;
-    const userid=req.body.userid
+    // const userid=req.body.userid;
     try{
-        const blogData=await Blogmodel.findOne({_id:blog,author:userid});       //Finding blog that has to be deleted
+        const blogData=await Blogmodel.findOne({_id:blog});       //Finding blog that has to be deleted
         if(blogData&& Object.keys(blogData).length>0){
             await Blogmodel.findOneAndDelete({_id:blog})
             res.status(200).send({msg:"Deleted Successfully"})

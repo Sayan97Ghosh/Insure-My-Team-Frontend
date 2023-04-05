@@ -28,6 +28,7 @@ const SignUp = () => {
     const [formData,setFormData]=useState(initState)
 
     const handleChange=(e)=>{
+     
         const {name,value}=e.target
         setFormData({...formData,[name]:value})
     }
@@ -35,6 +36,20 @@ const SignUp = () => {
       
     const register=()=>{
         setLoading(true);
+
+        if(formData.email === "" && formData.password === "" ){
+          toast({
+            title: "please fill email or password",
+            description: "Please check your Email and Password.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          setLoading(false);
+        }
+        else{
+
+        
         axios
           .post("http://localhost:1234/signup", formData)
           .then((res) => {
@@ -60,17 +75,18 @@ const SignUp = () => {
           });
 
           setFormData(initState)
+        }
     }
 
-      console.log(formData);
+  
   
   return (
     <>
         <TabPanel>
             <label>Name </label>
-            <Input type="text" placeholder='Enter name'  mb="10px" mt="5px" name="name" value={formData.name} onChange={handleChange}/>
+            <Input type="text" placeholder='Enter name'  mb="10px" mt="5px" name="name" value={formData.name} onChange={handleChange} isRequired/>
             <label>Email address</label>
-            <Input type="email" placeholder='Enter email'  mb="10px" mt="5px" name="email" value={formData.email} onChange={handleChange}/>
+            <Input type="email" placeholder='Enter email'  mb="10px" mt="5px" name="email" value={formData.email} onChange={handleChange} isRequired/>
             {/* <label>Profile Picture</label>
             <Input type="url" placeholder='Paste URL'  mb="10px" mt="5px" name="img" value={formData.img} onChange={handleChange}/> */}
             <label>Password</label>
@@ -83,6 +99,7 @@ const SignUp = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                isRequired
                 />
             <InputRightElement width='4.5rem'>
                 <Button h='1.75rem' size='sm' onClick={handleClick}>

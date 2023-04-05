@@ -7,6 +7,7 @@ import DrawerExample from "./Menu";
 import { Text, Flex, Input, Image, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import Login from "../Register/Login";
+import Logo from "./Logo.png";
 
 function MainNavbar() {
   let [data, setData] = useState("");
@@ -23,6 +24,16 @@ function MainNavbar() {
         alignItems="center"
       >
         <Flex ml="20px" gap="25px" alignItems="center">
+          {/* this is the logo section */}
+
+          <Link href="/">
+            <Image
+              w="90px"
+              h="80px"
+              src="https://thumbs.dreamstime.com/b/feedback-icon-writing-article-blog-logo-feedback-icon-writing-article-blog-logo-white-background-150648208.jpg"
+              alt="logo"
+            />
+          </Link>
           
           <div className={Styles.search}>
             <SearchIcon color="rgba(117, 117, 117, 1)" />

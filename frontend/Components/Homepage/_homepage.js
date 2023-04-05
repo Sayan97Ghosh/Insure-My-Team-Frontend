@@ -32,6 +32,7 @@ import {
   import Follower from "./_following";
   import Link from "next/link";
   import styles from "./homepage.module.css";
+import Commentmodal from "../Commentmodal";
 
 
   export default function Homepage() {
@@ -41,20 +42,20 @@ import {
   
     //  this theme is handleing the follow
 
-
+ //this is for reverse the blogs which write last it's come first
     useEffect(() => {
         // this is for pegination the fetched data 
       fetch(`http://localhost:1234/blog?page=${page}`)
         .then((res) => res.json())
         .then((r) => {
-          console.log(r.data);
-          setData(r);
+     
+          setData(r.reverse());
         });
 
       fetch(`http://localhost:1234/blog`)
         .then((res) => res.json())
         .then((r) => {
-          console.log(r.data)
+          
           setauthorData(r);
         });
     }, [page]);
@@ -66,58 +67,13 @@ import {
         return authordata.find((item) => item.name === name);
       });
 
-      console.log(result)
+    
   
     // console.log(data);
     
 
 //   this is for fav book marked vlog
-    const favBlog = (id) => {
-      const myHeaders = new Headers({
-        mode: "no-cors",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      });
   
-      fetch(`http://localhost:1234/fav/${id}`, {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify({ quantity: orqty }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw Error("Sorry, something went wrong");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    // this is for deleting blog for the perticular user
-    const deleteBlog = async (id) => {
-      const myHeaders = new Headers({
-        mode: "no-cors",
-        "Content-Type": "application/json",
-        Authorization:
-          `Bearer ${token}`,
-      });
-      return await fetch(`http://localhost:1234/blog/${id}`, {
-        method: "DELETE",
-        headers: myHeaders,
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw new Error("Something went wrong on api server!");
-          }
-        })
-        .catch((error) => {
-          console.log("Can not Deleted for error");
-          console.error(error);
-        });
-    };
     let months = [
       "January",
       "February",
@@ -200,12 +156,12 @@ import {
                       alignItems={"center"}
                     >
                       <HStack spacing={2} mt={5}>
-                        <Img
+                        {/* <Img
                           borderRadius="full"
                           boxSize="50px"
                           src={ele.author.img}
                           mb="10px"
-                        />
+                        /> */}
                         <Text
                           textTransform={"capitalize"}
                           fontWeight="bold"
@@ -233,7 +189,7 @@ import {
                           <div className={styles.bodytext}>{ele.body}</div>
                           <br />
                           {/* This is the last part */}
-                          <Flex gap={20}>
+                          <Flex  gap={30}>
                             <HStack >
                               <Button
                                 size="xs"
@@ -285,11 +241,12 @@ import {
                                   <PopoverBody>report</PopoverBody>
                                 </PopoverContent>
                               </Popover>
+                              <Commentmodal id = {ele._id}/>
                             </HStack>
                           </Flex>
                         </VStack>
-                        <VStack w={"20%"}>
-                          <Img w={"120px"} src={ele.img} />
+                        <VStack w={"30%"}>
+                          <Img w={"300px"} src={ele.img} />
                         </VStack>
                       </Flex>
                       <br />
@@ -301,10 +258,10 @@ import {
             </VStack>
             {/* this is right side */}
             <VStack
-              gap={5}
+              gap={10}
               alignItems="left"
               p={10}
-              maxW={"container.sm"}
+              maxW="25%"
               border="2px"
               borderColor="gray.300"
               mr={10}

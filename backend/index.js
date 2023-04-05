@@ -3,6 +3,7 @@ const cors = require("cors");
 const { connection } = require("./config/db");
 const { userRoute } = require("./routes/user.routes");
 const { blogRouter } = require("./routes/blog.routes");
+const { commentRoute } = require("./routes/comment.routes");
 require('dotenv').config();
 
 
@@ -17,6 +18,7 @@ app.use(cors({
 
 app.use("/",userRoute);
 app.use("/blog",blogRouter);
+app.use("/com",commentRoute);
 
 
 // access port though env

@@ -27,7 +27,7 @@ function DrawerExample() {
 
     useEffect(()=>{
       // // setAvtar(data.data.img)
-      setEmail(data.email)
+      setEmail(data.data.email)
     },[])
 
 
