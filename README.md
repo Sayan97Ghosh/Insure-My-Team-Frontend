@@ -10,7 +10,7 @@ Project: Blogging Website
 ##Run the application in localy
 ```bash
 npm run dev //frontend
-# or
+# and
 npm run start //backend
 ```
 
