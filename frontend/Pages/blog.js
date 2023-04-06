@@ -1,11 +1,13 @@
 
 import Blogpost from "../Components/Blogpost";
+import withAuth from "./withauth";
 
-
-export default function blog(){
+ function blog(){
+    
     return(
         <>
-        <Blogpost/>
+         <Blogpost/>
         </>
     )
 }
+export default withAuth(blog)

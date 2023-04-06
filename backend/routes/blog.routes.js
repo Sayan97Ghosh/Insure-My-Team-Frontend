@@ -7,6 +7,8 @@ const blogRouter = express.Router();
 
 
 
+
+
 // create a blog - POST
 
 blogRouter.post("/",Authentication,async(req,res)=>{
@@ -27,18 +29,38 @@ blogRouter.post("/",Authentication,async(req,res)=>{
 })
 // get all blogs with pagination limit
 
+// // search api blogs 
+// blogRouter.get("/search/:title",(req,res)=>{
+    
+//   })
+
 blogRouter.get("/",async(req,res)=>{
-    const {page} = req.body;
-    const skipdata = (page-1)*9;
-    const blog = req.params;
-    try{
-        const blogData=await Blogmodel.find(blog).skip(skipdata||0).limit(9)    //pagination
-        res.status(200).send(blogData)      //sending blogs data
+    const {page,blog} = req.query;
+ 
+    const skipdata = (page-1)*4;
+    console.log(typeof blog);
+    const blogs = req.params;
 
-    }catch(err){
-        res.status(404).send({msg:err.message})
+    if(blog){
+             var regex = new RegExp(blog,"i");
+            Blogmodel.find({title:regex}).then((result)=>{
+            console.log(result);
+      res.status(200).json(result);
+    })   //sending blogs data
+    
+       
     }
-
+    else{
+        try{
+            const blogData=await Blogmodel.find(blogs).sort({_id:-1}).skip(skipdata||0).limit(4)    //pagination
+            res.status(200).send(blogData)      //sending blogs data
+    
+        }catch(err){
+            res.status(404).send({msg:err.message})
+        }
+    
+    }
+   
 })
 // get the specific blog with id
 blogRouter.get("/:_id",async(req,res)=>{

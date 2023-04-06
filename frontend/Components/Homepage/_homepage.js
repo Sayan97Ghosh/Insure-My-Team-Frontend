@@ -41,6 +41,12 @@ import Commentmodal from "../Commentmodal";
     const [page, setpage] = useState(1);
   
     //  this theme is handleing the follow
+    if (typeof window !== 'undefined') {
+      const searchedData = JSON.parse(sessionStorage.getItem("filter"));
+    console.log(searchedData);
+  }
+
+    
 
  //this is for reverse the blogs which write last it's come first
     useEffect(() => {
@@ -49,7 +55,7 @@ import Commentmodal from "../Commentmodal";
         .then((res) => res.json())
         .then((r) => {
      
-          setData(r.reverse());
+          setData(r);
         });
 
       fetch(`http://localhost:1234/blog`)
@@ -120,7 +126,7 @@ import Commentmodal from "../Commentmodal";
                   <Button
                     onClick={() => setpage(page - 1)}
                     variant="ghost"
-                    disabled={page == 1}
+                    disabled={page === 1}
                   >
                     Previous
                   </Button>
@@ -314,10 +320,10 @@ import Commentmodal from "../Commentmodal";
                 {data.map((ele, i) => (
                   <VStack alignItems="left" key={i}>
                     <HStack alignItems="left">
-                      <AspectRatio ratio={1} w={6}>
+                      {/* <AspectRatio ratio={1} w={6}>
                         <Img src={ele.details.img} />
-                      </AspectRatio>
-                      <Text>{ele.details.name}</Text>
+                      </AspectRatio> */}
+                      <Heading size={"xs"}>{ele.details.name}</Heading>
                     </HStack>
                     <HStack gap={10}>
                       <Text>A versetile React Developer</Text>

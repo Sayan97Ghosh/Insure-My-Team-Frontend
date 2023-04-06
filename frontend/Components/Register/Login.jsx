@@ -30,7 +30,7 @@ import {
   import { useRouter } from "next/router";
   
   const Login = () => {
-    let route = useRouter();
+  
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [show, setShow] = useState(false);
     //   const [userIcon,setuserIcon]=useState(true);
@@ -39,6 +39,8 @@ import {
     const [loading, setLoading] = useState(false);
   
     const toast = useToast();
+    const isAuthenticated = true;
+    let route = useRouter();
   
     const handleChange = (e) => {
 
@@ -64,7 +66,7 @@ import {
       axios
         .post("http://localhost:1234/login", formData)
         .then(({ data }) => {
-          console.log(data.token);
+          
           sessionStorage.setItem("data", JSON.stringify(data));
           toast({
             title: data.message,
@@ -73,6 +75,15 @@ import {
             duration: 5000,
             isClosable: true,
           });
+
+           // replace with your authentication logic
+          if (isAuthenticated) {
+          // Set the authentication state
+          localStorage.setItem('isAuthenticated', true)
+          route.push('/')
+          } else {
+          alert('Invalid email or password')
+          }
           setLoading(false);
           setTimeout(()=>{
 

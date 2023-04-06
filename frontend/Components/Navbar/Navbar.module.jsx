@@ -11,9 +11,35 @@ import Logo from "./Logo.png";
 
 function MainNavbar() {
   let [data, setData] = useState("");
+  const [searched,setSearched] = useState("");
+  const[filterData,setfilterData] = useState([]);
+
+
   useEffect(() => {
     setData(sessionStorage.getItem("data"));
   }, [data]);
+
+ 
+  //  useEffect(()=>{
+    
+  //  },[searched])
+
+
+  const handleSearch = ()=>{
+      
+      fetch(`http://localhost:1234/blog?blog=${searched}`)
+    .then((res) => res.json())
+    .then((r) => {
+      setfilterData(r);
+    });
+    
+  }
+  if (typeof window !== 'undefined') {
+    
+    sessionStorage.setItem("filtered",JSON.stringify(filterData))
+}
+
+//  console.log(filterData)
 
   return (
     <div className={Styles.topnav}>
@@ -36,13 +62,14 @@ function MainNavbar() {
           </Link>
           
           <div className={Styles.search}>
-            <SearchIcon color="rgba(117, 117, 117, 1)" />
+            <SearchIcon onClick={handleSearch} color="rgba(117, 117, 117, 1)" />
             <Input
               type="text"
               size="lg"
               placeholder="Search"
               variant="unstyled"
               ml="10px"
+              onChange={(e)=>setSearched(e.target.value)}
             />
           </div>
         </Flex>
