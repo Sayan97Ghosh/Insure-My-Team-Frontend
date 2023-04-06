@@ -20,7 +20,11 @@ Project: Blogging Website
 - MongoDB
 
 ## Flow of the website
-
+- Reader can view the peginated blogs
+- After login Author can view the blog (in singlepage) as well,and can create and post any blog ,also user can edit and delete his own blog,
+- Author can leave a comment in any blog with his and blog id
+- Reader and Author both can search the specific blog (one string search) ,for the bug this features is hidden fron frontend
+- when the Author logout he becames reader.
 
 
 ## Snapshots 📷
