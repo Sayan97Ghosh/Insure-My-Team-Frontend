@@ -33,6 +33,8 @@ This is Profile page after login it's will show the email and all the posted blo
 ![localhost-3000-profile](https://user-images.githubusercontent.com/107979907/230353950-3ccd0833-a773-411f-927e-8190a8aa1874.png)
 This is the blog write page where authenticated user can post
 ![localhost-3000-blog](https://user-images.githubusercontent.com/107979907/230354275-5bd761af-7336-4f29-9b97-9c143025798f.png)
+This is the Comment modal where each user leave a comment
+![localhost-3000 -comment](https://user-images.githubusercontent.com/107979907/230355134-1e9c365a-7395-4454-9475-6a5247e7b7d0.png)
 
 
 ### End Notes 📑
