@@ -8,8 +8,8 @@ Project: Blogging Website
 
 &nbsp;&nbsp;&nbsp;&#160;In this project I have tried to make a Blogging Website. With all the efforts and the technology stack, that I have learned till now in the masai school.<br><br>
 ##Run the application in localy
- 🎀frontend:cd frontend ----> npm run dev
- 🧨backend: cd backend -----> npm run start
+ -🎀frontend:cd frontend ----> npm run dev
+ -🧨backend: cd backend -----> npm run start
 ## Technology Stack Used
 
 - HTML
